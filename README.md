@@ -4,9 +4,10 @@ Hi! I'm Miguel, and I'm building network engineering skills through CompTIA A+ a
 
 ## What's in This Repository
 
-- **[study-notes/](./study-notes/)** - My notes from my foundational networking study and my CCNA study
 - **[packet-tracer-projects/](./packet-tracer-projects/)** - Network designs I've built in Cisco Packet Tracer
-- **[physical-lab/](.physical-lab/)** - Configurations from my real homelabbing equipment
+- **[physical-lab/](./physical-lab/)** - Configurations from my real homelabbing equipment 
+- **[study-notes/](./study-notes/)** - My notes from my foundational networking study and my CCNA study
+- **[troubleshooting-methodology/](./troubleshooting-methodology/README.md)** - My structured troubleshooting methodology and lab incident tickets
 
 ## My Lab Equipment
 
@@ -19,12 +20,15 @@ Hi! I'm Miguel, and I'm building network engineering skills through CompTIA A+ a
 - 📚Studying for the CompTIA A+ Certification
 - 📚Studying foundational networking concepts (CCNA prep)
 - ⚙️Setting up my physical homelab (Cisco C3850 + Windows Server 2022)
-- 🛠️Building foundational Packet Tracer projects
+- 🛠️ Expanding Packet Tracer project portfolio
+
 
 ## Current Progress
 
+- ✅ IPv4 Addressing Lab — Class A, B, & C Networks
 - ✅ CompTIA A+ Core 1 - Passed!
-- 📚 CompTIA A+ Core 2 - Studying now
+- 📚 CompTIA A+ Core 2 - Scheduled!
 - 📚 CCNA - Studying now
 
-**Last Updated:** January 31st, 2026
+
+**Last Updated:** Feb 28, 2026
