@@ -1,0 +1,163 @@
+# Incident Ticket — 'Inter Network Connectivity Failure — Missing PCs Default Gateways'
+
+**Ticket ID:** INC-001  
+**Date:** 2026-02-27  
+**Severity:** High  
+**Status:** Resolved  
+**Date of Completion:** 2026-02-28   
+**Completed By:** Miguel A. Urrego Grajales  
+
+## 1. Identify Problem
+<!-- What is the issue? Who reported it? What are the symptoms? -->
+
+**Description:** Inter Network ping failing  
+**Reported by:** Miguel A. Urrego Grajales  
+**Symptoms:**  100% packet loss  
+
+---
+
+## 2. Gather Information  
+**Recent changes in the environment:** recently configured a router with default gateway  
+**Error messages:** Packets: Sent = 4, Received = 0, Lost = 4 (100% loss)  
+**Affected devices:**  PC1, PC2, PC3, PC4, PC5, PC6  
+
+### 2a. Additional Context (if relavant)  
+**User actions before issue:** 
+
+Recently configured router interfaces with IP addresses to serve as default gateways for each network segment and configured PCs IP Addresses  
+Configuration:  
+``` 
+interface g0/0  
+  ip address 10.255.255.254 255.0.0.0  
+  description ## to SW1 ##  
+  no shutdown  
+  
+int g0/1  
+  ip add 192.168.1.254 255.255.255.0  
+  desc ## to SW2 ##  
+  no shutdown  
+  
+int g0/2  
+  ip add 172.16.255.254 255.255.0.0  
+  desc ## to SW3 ##  
+  no shutdown  
+  
+end  
+write memory  
+```
+
+### 2b. Common Causes Eliminated
+-  DHCP instead of Static IP 
+-  Incorrect Static IP address configurations on the PCs
+-  Incompatible NIC/incorrect NIC
+
+---
+
+## 3. Theory (OSI Model Approach Used)
+- [ ] Bottom-Up (Layer 1 → 7)
+- [ ] Top-Down (Layer 7 → 1)
+- [X] Divide & Conquer (Layer 3/4)
+
+**Theory:**  Issue with the configuration of the 3 default gateways on the router
+
+### 3a. Theory Test Results
+**Commands used:**  
+Router CLI Input
+```
+en
+configure terminal
+do sh ip int br
+```
+
+Router CLI Output
+![Router Interface brief](img/int_brief_router.png)
+
+PC1-6 Terminal Input
+```
+ping 10.255.255.254
+```
+
+PC1-6 Terminal Output  
+![Switch Interface brief](img/pc_ping_router.png)
+
+
+**Summary:**  The router interfaces configured with the correct default gateways and no shutdown command is applied. PCs within a specific network can ping the router default gateway in that network.  
+
+**Was theory correct?**  No  
+**If No — revised theory:**  Switch config needed/interfaces have a shutdown command  
+
+Switch CLI Input
+```
+en
+configure terminal
+do sh ip int br
+```
+
+Switch CLI Output
+![Switch Interface brief](img/int_brief_switch.png)
+
+**Summary:**  No shutdown command is applied to the connected interfaces. Cisco switches do not need configuring by default  
+**Was theory correct?**  No  
+**If No — revised theory:**  Default Gateway on the PCs incorrect configuration/not configured  
+Investigation:  
+1.  Access each desktop (PC 1-6)  
+2.  Checked the IP configuration on each desktop  
+3.  Find the Default Gateway tab  
+
+Result: No Default Gateway inputted on all PCs  
+
+
+**Summary:**  No Default Gateway was established/configured on each desktop  
+**Was theory correct?**  Yes
+
+
+---
+
+## 4. Action Plan & Resolution
+
+### 4a. Action Plan
+1.  Access each desktop's IP config and go under the Default Gateway
+2.  Enter the designated Default Gateway configuration for each PC
+3.  Test solution  
+
+**Implementation:**  
+
+Set default gateway on each PC to their respective router interface IP  
+Configuration: Class A(PC1 & PC2) 10.255.255.254/8, Class C(PC3 & PC4) 192.168.1.254/24, Class B(PC5 & PC6) 172.16.255.254/16
+
+**Verification:**  
+
+PC2 (10.0.0.2) input
+```
+ping 192.168.1.1
+ping 172.16.0.1
+```
+
+PC2 (10.0.0.2) output  
+![Pinging Class B & C networks](img/nw_nw_ping.png)
+
+**Summary:**  The solution was successful and inter network routing is successful  
+**Was the issue resolved:**  Yes
+
+### 4b. Preventative Measures
+- Double checking IP configurations and Router configs before pushing them through  
+- Make changes/configurations step by step. After making a change check first before moving on  
+
+---
+
+## Documentation Summary
+
+**Root Cause:**  Default Gateway not configured on the PCs  
+**Resolution:**  Configured the Default Gateway on each PCs designated router IP  
+**Time to Resolve:**  ~1 hour  
+**Lessons Learned:**  
+- When configuring IP on each PC make sure to see the Default Gateway  
+- When troubleshooting inter network ping 100% packet loss check the PC's IP configuration
+- The first packet timeout is normal on cross-network pings. The ARP resolution learning MAC addresses of the default gateway.
+- 100% packet loss means theres a complete break in the connection between the source and the network. No data reached the target. A common problem is network misconfigurations 
+
+
+
+
+
+
