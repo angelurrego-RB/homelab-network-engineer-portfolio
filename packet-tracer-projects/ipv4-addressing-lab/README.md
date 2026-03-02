@@ -66,13 +66,16 @@ write memory
 
 ## Verification
 
-Pings from PC2 to devices across all three networks:
+Pings from PC2 (10.0.0.2) to devices across all three networks:
 
 ![Ping verification](verification/conn_test.png)
 
 The first packet timeout is expected. This is a good representation of ARP (Address Resolution Protocol) resolution happening as R1 learns the destination MAC addresses. The remaining three packets were successful.
 
 The ping on the same network (PC2 to PC1) had a return TTL=128, and pings across the networks had TTL=127. This confirms traffic passed through R1 since the default TTL is 128 and the ping across networks was 127. 128 - 127 = 1 hop.
+
+## Troubleshooting 
+[Troubleshooting Ticket #1: Default Gateway](./tickets/INC-001.md)
 
 ## Key Takeaways
 
