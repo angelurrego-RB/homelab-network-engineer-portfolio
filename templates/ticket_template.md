@@ -58,19 +58,22 @@ paste output here
 **Verification:**  
 
 ### 4b. Preventative Measures
-- Lorem ipsum dolor sit amet consectetur adipiscing elit
-- Amet consectetur adipiscing elit quisque faucibus ex sapien
+- 
+- 
 
 ---
 
 ## Documentation Summary
 
-**Root Cause:**  Lorem ipsum dolor sit amet consectetur adipiscing elit
-**Resolution:**  Amet consectetur adipiscing elit quisque faucibus ex sapien
-**Time to Resolve:**  Quisque faucibus ex sapien vitae pellentesque sem placerat
+**Root Cause:**  
+**Resolution:**  
+**Time to Resolve:**  
 **Lessons Learned:** 
-- Vitae pellentesque sem placerat in id cursus mi
-- In id cursus mi pretium tellus duis convallis tempus leo eu aenean sed diam urna tempor
+- 
+- 
+
+---
+
 
 
 
